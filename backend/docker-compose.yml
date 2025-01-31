@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  backend:
+    image: software-mind-backend
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - cassandra-db
+    networks:
+      - app-network
+  cassandra-db:
+    image: cassandra:latest
+    container_name: cassandra-db
+    environment:
+      - CASSANDRA_CLUSTER_NAME=TestCluster
+      - CASSANDRA_LISTEN_ADDRESS=cassandra-db
+      - CASSANDRA_RPC_ADDRESS=0.0.0.0
+    ports:
+      - "9042:9042"
+    healthcheck:
+      test: [ "CMD", "cqlsh", "-e", "DESCRIBE KEYSPACES" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
