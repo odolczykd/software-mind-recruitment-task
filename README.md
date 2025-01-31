@@ -15,7 +15,7 @@
     ```bash
     docker exec -it cassandra-instance cqlsh
     ```
-   and set up database using queries given below or in [`init.cql`](../database/init.cql) file:
+   and set up database using queries given below or in [`init.cql`](./database/init.cql) file:
     ```cassandraql
     CREATE KEYSPACE IF NOT EXISTS my_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
     
@@ -42,7 +42,7 @@
 ## Backend Description
 
 ### Endpoints
-Application has one REST controller named [`ProductController`](./src/main/java/com/softwaremind/odolczykd/recruitment/product/controller/ProductController.java) containing six endpoints:
+Application has one REST controller named [`ProductController`](./backend/src/main/java/com/softwaremind/odolczykd/recruitment/product/controller/ProductController.java) containing six endpoints:
 * `GET /products` - returns all products from database
 * `GET /products/category/{category}` - returns all products that satisfy given category name
 * `GET /products/{id}` - returns details of product with given ID
@@ -80,12 +80,12 @@ User management is implemented with using `InMemoryUserDetailsManager`. Applicat
 * `User{username=user, password=user, role=USER}`
 * `User{username=admin, password=admin, role=ADMIN}`
 
-It is also possible to create a new user account using `/auth/register` endpoint located in [`AuthController`](./src/main/java/com/softwaremind/odolczykd/recruitment/auth/controller/AuthController.java).
+It is also possible to create a new user account using `/auth/register` endpoint located in [`AuthController`](./backend/src/main/java/com/softwaremind/odolczykd/recruitment/auth/controller/AuthController.java).
 
 ### Tests
 There are 2 test classes in project:
-* [`RestAddProductSpec.groovy`](./src/test/groovy/com/softwaremind/odolczykd/recruitment/product/rest/RestAddProductSpec.groovy)
-* [`ProductControllerSpec.groovy`](./src/test/groovy/com/softwaremind/odolczykd/recruitment/product/controller/ProductControllerSpec.groovy)
+* [`RestAddProductSpec.groovy`](./backend/src/test/groovy/com/softwaremind/odolczykd/recruitment/product/rest/RestAddProductSpec.groovy)
+* [`ProductControllerSpec.groovy`](./backend/src/test/groovy/com/softwaremind/odolczykd/recruitment/product/controller/ProductControllerSpec.groovy)
 
 All of them are written using Spock framework.
 `RestAddProductSpec` class tests payload for creating new product (i.e. all the field validations written in [Endpoints](#endpoints) point),
